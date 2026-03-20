@@ -272,8 +272,8 @@ int main()
     for (int i = 0; i < 5; i++)
     {
         int randomIndex = rand() % names.size();                            // Get a random index for the names vector
-        customerList.push_back(names[rand() % names.size()]);               // Add a random name to the customer list
-        cout << names[rand() % names.size()] << " joins the line." << endl; // Print the name of the customer entering the store
+        customerList.push_back(names[randomIndex]);                         // Add the selected name to the customer list
+        cout << names[randomIndex] << " joins the line." << endl; // Print the name of the customer entering the store
     }
     customerList.print(); // Print the initial list of customers
 
@@ -282,6 +282,19 @@ int main()
     {
         cout << "Minute " << minute << ": " << endl;
         int prob = rand() % 100 + 1; // Generate a random number between 1 and 100 to determine the event
+
+        if (prob <= 40) // 40% chance a customer is served.
+        {
+            cout << names[0] << " is served and leaves the line." << endl; // Print the name of the customer being served
+            customerList.pop_front(); // Remove the first customer from the list
+        }
+        if (prob <= 60) // 60% chance a customer joins the line.
+        {
+            int randomIndex = rand() % names.size();                            // Get a random index for the names vector
+            customerList.push_back(names[randomIndex]);                         // Add the selected name to the customer list
+            cout << names[randomIndex] << " joins the line." << endl; // Print the name of the customer entering the store
+        }
+        if (prob <=)
     }
 
     return 0;

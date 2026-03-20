@@ -248,13 +248,13 @@ int main() {
         }
         if (prob <= 60) // 60% chance a customer joins the line.
         {
-            int randomIndex = rand() % names.size(); // Get a random index for the names vector
-            customerList.push_back(names[randomIndex]); // Add the selected name to the customer list
-            cout << names[randomIndex] << " joins the line." << endl; // Print the name of the customer entering the store
+            int randomIndex = rand() % names.size();
+            customerList.push_back(names[randomIndex]);
+            cout << names[randomIndex] << " joins the line." << endl;
         }
         if (prob <= 20) // 20% chance customer at back of line leaves.
-        {
-            cout << names[names.size() - 1] << " at the back of the line leaves." << endl; // Print the name of the customer leaving from the back
+        { // Print the name of the customer leaving from the back
+            cout << names[names.size() - 1] << " at the back of the line leaves." << endl;
             customerList.pop_back(); // Remove the last customer from the list
         }
         if (prob <= 10) // 10% chance any customer in the line leaves.

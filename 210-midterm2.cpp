@@ -1,4 +1,7 @@
 #include <iostream>
+#include <vector> // Will be used to store names.
+#include <string>
+#include <fstream>
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
@@ -6,11 +9,11 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 class DoublyLinkedList {
 private:
     struct Node {
-        int data;
+        string name; // Change int to string to store names.
         Node* prev;
         Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val; 
+        Node(string na, Node* p = nullptr, Node* n = nullptr) {
+            name = na; // Initialize name instead of data.
             prev = p;
             next = n;
         }
@@ -206,6 +209,22 @@ public:
 int main() {
     srand(time(0)); // Seed the random number generator
 
-    
+    vector<string> names; // Creates vector that stores names from file.
+    ifstream inFile("names.txt");
+    if (!inFile) {
+        cerr << "Unable to open file names.txt" << endl;
+        return 1; // Exit with error code
+    }
+    string name;
+    while (getline(inFile, name)) {
+        names.push_back(name);
+    }
+    inFile.close();
+
+    // Create a doubly linked list named customerList. We will start with 5 customers with random names from the file.
+    DoublyLinkedList customerList;
+
+
+
     return 0;
 }

@@ -6,42 +6,53 @@ using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
-class DoublyLinkedList {
+class DoublyLinkedList
+{
 private:
-    struct Node {
+    struct Node
+    {
         string name; // Change int to string to store names.
-        Node* prev;
-        Node* next;
-        Node(string na, Node* p = nullptr, Node* n = nullptr) {
+        Node *prev;
+        Node *next;
+        Node(string na, Node *p = nullptr, Node *n = nullptr)
+        {
             name = na; // Initialize name instead of data.
             prev = p;
             next = n;
         }
     };
 
-    Node* head;
-    Node* tail;
+    Node *head;
+    Node *tail;
 
 public:
-    DoublyLinkedList() { head = nullptr; tail = nullptr; }
+    DoublyLinkedList()
+    {
+        head = nullptr;
+        tail = nullptr;
+    }
 
-    void insert_after(int value, int position) {
-        if (position < 0) {
+    void insert_after(string name, int position)
+    {
+        if (position < 0)
+        {
             cout << "Position must be >= 0." << endl;
             return;
         }
 
-        Node* newNode = new Node(value);
-        if (!head) {
+        Node *newNode = new Node(name);
+        if (!head)
+        {
             head = tail = newNode;
             return;
         }
 
-        Node* temp = head;
+        Node *temp = head;
         for (int i = 0; i < position && temp; ++i)
             temp = temp->next;
 
-        if (!temp) {
+        if (!temp)
+        {
             cout << "Position exceeds list size. Node not inserted.\n";
             delete newNode;
             return;
@@ -56,98 +67,115 @@ public:
         temp->next = newNode;
     }
 
-    void delete_val(int value) {
-        if (!head) return;
+    void delete_val(string name)
+    {
+        if (!head)
+            return;
 
-        Node* temp = head;
-        
-        while (temp && temp->data != value)
+        Node *temp = head;
+
+        while (temp && temp->name != name)
             temp = temp->next;
 
-        if (!temp) return; 
+        if (!temp)
+            return;
 
         if (temp->prev)
             temp->prev->next = temp->next;
         else
-            head = temp->next; 
+            head = temp->next;
 
         if (temp->next)
             temp->next->prev = temp->prev;
         else
-            tail = temp->prev; 
+            tail = temp->prev;
 
         delete temp;
     }
 
-    void delete_pos(int pos) {
-        if (!head) {
+    void delete_pos(int pos)
+    {
+        if (!head)
+        {
             cout << "List is empty." << endl;
             return;
         }
-    
-        if (pos == 1) {
+
+        if (pos == 1)
+        {
             pop_front();
             return;
         }
-    
-        Node* temp = head;
-    
-        for (int i = 1; i < pos; i++){
-            if (!temp) {
+
+        Node *temp = head;
+
+        for (int i = 1; i < pos; i++)
+        {
+            if (!temp)
+            {
                 cout << "Position doesn't exist." << endl;
                 return;
             }
             else
                 temp = temp->next;
         }
-        if (!temp) {
+        if (!temp)
+        {
             cout << "Position doesn't exist." << endl;
             return;
         }
-    
-        if (!temp->next) {
+
+        if (!temp->next)
+        {
             pop_back();
             return;
         }
-    
-        Node* tempPrev = temp->prev;
+
+        Node *tempPrev = temp->prev;
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
         delete temp;
     }
 
-    void push_back(int v) {
-        Node* newNode = new Node(v);
+    void push_back(string name)
+    {
+        Node *newNode = new Node(name);
         if (!tail)
             head = tail = newNode;
-        else {
+        else
+        {
             tail->next = newNode;
             newNode->prev = tail;
             tail = newNode;
         }
     }
-    
-    void push_front(int v) {
-        Node* newNode = new Node(v);
+
+    void push_front(string name)
+    {
+        Node *newNode = new Node(name);
         if (!head)
             head = tail = newNode;
-        else {
+        else
+        {
             newNode->next = head;
             head->prev = newNode;
             head = newNode;
         }
     }
-    
-    void pop_front() {
 
-        if (!head) {
+    void pop_front()
+    {
+
+        if (!head)
+        {
             cout << "List is empty." << endl;
             return;
         }
 
-        Node * temp = head;
+        Node *temp = head;
 
-        if (head->next) {
+        if (head->next)
+        {
             head = head->next;
             head->prev = nullptr;
         }
@@ -156,14 +184,17 @@ public:
         delete temp;
     }
 
-    void pop_back() {
-        if (!tail) {
+    void pop_back()
+    {
+        if (!tail)
+        {
             cout << "List is empty." << endl;
             return;
         }
-        Node * temp = tail;
+        Node *temp = tail;
 
-        if (tail->prev) {
+        if (tail->prev)
+        {
             tail = tail->prev;
             tail->next = nullptr;
         }
@@ -172,52 +203,84 @@ public:
         delete temp;
     }
 
-    ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
+    ~DoublyLinkedList()
+    {
+        while (head)
+        {
+            Node *temp = head;
             head = head->next;
             delete temp;
         }
     }
-    void print() {
-        Node* current = head;
-        if (!current) {
+    void print()
+    {
+        Node *current = head;
+        if (!current)
+        {
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
-            cout << current->data << " ";
+        cout << "resulting line: "; // Moved here to print before the loop to avoid printing it multiple times.
+        while (current)
+        {
+            cout << current->name << " ";
             current = current->next;
         }
         cout << endl;
     }
 
-    void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
+    void print_reverse()
+    {
+        Node *current = tail;
+        if (!current)
+        {
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
-            cout << current->data << " ";
+        while (current)
+        {
+            cout << current->name << " ";
             current = current->prev;
         }
         cout << endl;
     }
-};
+}; // Updated all functions to work with strings instead of ints.
 
-int main() {
-    srand(time(0)); // Seed the random number generator
+void eventProbability()
+{ // Simulates events that can happen during each minute.
+    int event = rand() % 100 + 1; // Generate a random number between 1 and 100
+    if (event <= 40)
+    {
+        cout << "Customer helped." << endl;
+    }
+    else if (event <= 60)
+    {
+        cout << "New customer joins back of line." << endl;
+    }
+    else if (event <= 20)
+    {
+        cout << "Customer gets mad and leaves back of line." << endl;
+    }
+    else if
+    {
+        cout <
+}
+
+int main()
+{
+    srand(time(0));                                          // Seed the random number generator
     int randomNum = rand() % (MAX_NR - MIN_NR + 1) + MIN_NR; // Generate random number between 10 and 99
 
     vector<string> names; // Creates vector that stores names from file.
     ifstream inFile("names.txt");
-    if (!inFile) {
+    if (!inFile)
+    {
         cerr << "Unable to open file names.txt" << endl;
         return 1; // Exit with error code
     }
     string name;
-    while (getline(inFile, name)) {
+    while (getline(inFile, name))
+    {
         names.push_back(name);
     }
     inFile.close();
@@ -226,12 +289,16 @@ int main() {
     // in our first minute.
     cout << "Store opens: " << endl;
     DoublyLinkedList customerList;
-    for (int i = 0; i < 5; i++) {
-        int randomIndex = rand() % names.size(); // Get a random index for the names vector
-        customerList.push_back(names[rand() % names.size()]); // Add a random name to the customer list
+    for (int i = 0; i < 5; i++)
+    {
+        int randomIndex = rand() % names.size();                            // Get a random index for the names vector
+        customerList.push_back(names[rand() % names.size()]);               // Add a random name to the customer list
+        cout << names[rand() % names.size()] << " joins the line." << endl; // Print the name of the customer entering the store
     }
-    
+    customerList.print(); // Print the initial list of customers
 
+    // Second minute
+    cout << "\nSecond minute: " << endl;
 
     return 0;
 }

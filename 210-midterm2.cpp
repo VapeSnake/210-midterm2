@@ -204,7 +204,7 @@ public:
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    srand(time(0)); // Seed the random number generator
 
     
     return 0;

@@ -246,26 +246,6 @@ public:
     }
 }; // Updated all functions to work with strings instead of ints.
 
-void eventProbability()
-{ // Simulates events that can happen during each minute.
-    int event = rand() % 100 + 1; // Generate a random number between 1 and 100
-    if (event <= 40)
-    {
-        cout << "Customer helped." << endl;
-    }
-    else if (event <= 60)
-    {
-        cout << "New customer joins back of line." << endl;
-    }
-    else if (event <= 20)
-    {
-        cout << "Customer gets mad and leaves back of line." << endl;
-    }
-    else if
-    {
-        cout <
-}
-
 int main()
 {
     srand(time(0));                                          // Seed the random number generator
@@ -297,8 +277,12 @@ int main()
     }
     customerList.print(); // Print the initial list of customers
 
-    // Second minute
-    cout << "\nSecond minute: " << endl;
+    // We can use a loop to simulate periods 2-20.
+    for (int minute = 2; minute <= 20; minute++)
+    {
+        cout << "Minute " << minute << ": " << endl;
+        int prob = rand() % 100 + 1; // Generate a random number between 1 and 100 to determine the event
+    }
 
     return 0;
 }

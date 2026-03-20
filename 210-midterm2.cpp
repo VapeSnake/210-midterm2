@@ -208,6 +208,7 @@ public:
 
 int main() {
     srand(time(0)); // Seed the random number generator
+    int randomNum = rand() % (MAX_NR - MIN_NR + 1) + MIN_NR; // Generate random number between 10 and 99
 
     vector<string> names; // Creates vector that stores names from file.
     ifstream inFile("names.txt");
@@ -221,9 +222,15 @@ int main() {
     }
     inFile.close();
 
-    // Create a doubly linked list named customerList. We will start with 5 customers with random names from the file.
+    // Create a doubly linked list named customerList. We will start with 5 customers with random names from the file
+    // in our first minute.
+    cout << "Store opens: " << endl;
     DoublyLinkedList customerList;
-
+    for (int i = 0; i < 5; i++) {
+        int randomIndex = rand() % names.size(); // Get a random index for the names vector
+        customerList.push_back(names[rand() % names.size()]); // Add a random name to the customer list
+    }
+    
 
 
     return 0;
